@@ -1,0 +1,31 @@
+/*
+For finding shortest path bfs is preferred over dfs
+TC: O(2*E) + O(N) ->because N nodes will be visited and for each node degree of nodes will be checked
+SC: O(3N) ~ O(N)
+*/
+vector<int> bfsOfGraph(int V, vector<int> adj[]) 
+    {
+        vi res;
+        vb vis(V, false);
+        queue<int> q;
+        q.push(0);
+        vis[0] =true;
+        
+        while(!q.empty())
+        {
+            int v = q.front();
+            q.pop();
+            res.push_back(v);
+           
+            for(int i=0;i<adj[v].size(); i++)
+            {
+                if(vis[adj[v][i]]==false) //remember adj[v][i] and not just vis[i]
+                {
+                    // cout<<i<<endl;
+                    q.push(adj[v][i]);
+                    vis[adj[v][i]]=true;
+                }
+            }
+        }
+        return res;
+    }
