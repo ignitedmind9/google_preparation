@@ -1,0 +1,91 @@
+/*
+Two types: 
+1. adjacency matrix : TC - O(N)  SC - O(N*N). opn to find edge between nodes is faster, space is more
+2. Adjacency list:  TC - O(2*E). SC - O(N*E)  space required is less
+*/
+
+
+//Adjacency list representation
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main() 
+{
+    int v, e;
+    cin>>v>>e;
+     
+    vector<int> adj[v]; //id 0-based indexing  or vector<vector<int>> adj(v);
+    for(int i=0;i<e;i++)
+    {
+        int u, z;
+        cin>>u>>z;
+        adj[u].push_back(z);
+        adj[z].push_back(u);
+    }
+    
+    for(int i=0;i<v;i++)
+    {
+        cout<<i<<"------>";
+        for(int j=0;j<adj[i].size();j++)
+        {
+            cout<<adj[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    return 0;
+}
+
+
+//adjacency matrix
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+typedef vector<vector<int>> vvi;
+typedef vector<int> vi;
+
+int main() 
+{
+    int v, e;
+    cin>>v>>e;
+     
+    vvi adj(v, vi(v)); //id 0-based indexing
+    for(int i=0;i<e;i++)
+    {
+        int u, z;
+        cin>>u>>z;
+        adj[u][z]=1;
+        adj[z][u]=1;
+    }
+    
+    for(int i=0;i<v;i++)
+    {
+        for(int j=0;j<adj[i].size();j++)
+        {
+            cout<<adj[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    return 0;
+}
+
+
+//use case 
+vector<vector<int>> printGraph(int V, vector<int> adj[]) 
+    {
+        vector<vector<int>> res;
+        
+        for(int v=0; v<V;v++)
+        {
+            vector<int> temp;
+            temp.push_back(v);
+            for(int j=0;j<adj[v].size(); j++)
+            {
+                temp.push_back(adj[v][j]);
+            }
+            res.push_back(temp);
+        }
+        return res;
+    }
