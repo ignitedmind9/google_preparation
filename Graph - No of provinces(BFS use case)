@@ -1,0 +1,31 @@
+/* 
+TC: O(2*E) + O(N)
+SC: O(3N) ~ O(N)
+*/
+int findCircleNum(vector<vector<int>>& isConnected) 
+    {
+        int V = isConnected.size();
+        if(V==0) return V;
+        vi vis(V, 0);
+        int province=0;
+        
+        for(int v=0; v<V; v++){
+            if(vis[v]) continue;
+                queue<int> q;
+                q.push(v);
+                province++;
+                while(!q.empty()){
+                    int temp = q.front(); //remember to use this temp in isConnected[temp]
+                    q.pop();
+                    vis[temp]=1;
+                    for(int i=0;i<isConnected[temp].size(); i++){
+                        if(vis[i]==0 && isConnected[temp][i]==1){
+                            q.push(i);
+                            vis[i]=1;
+                        }
+                    }
+                }
+             
+        }
+        return province;
+    }
