@@ -1,0 +1,34 @@
+void fillColor(vector<vector<int>>& image, int &sr, int &sc, vector<vector<bool>>& vis, int changecolor, int n, int m, int target)
+    {
+        
+        vis[sr][sc] = true;
+        
+        int row[] = {1,0,-1,0};
+        int col[] = {0,1,0,-1};
+        
+        for(int k=0;k<4; k++){
+            int x = row[k]+sr;
+            int y = col[k]+sc;
+            if(x>=0 && x<n && y>=0 && y<m &&vis[x][y]==false && image[x][y]==target) //remember to check border cond before checking pixel value
+            {
+                image[x][y] = changecolor;
+                vis[x][y] = true;
+                fillColor(image, x, y, vis, changecolor, n, m, target);
+            }
+                
+        }
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) 
+    {
+        int n = image.size();
+        int m = image[0].size();
+        if(n==0) return image;
+        
+        vector<vector<bool>> vis(n, vector<bool>(m, false));
+        int target = image[sr][sc];
+        image[sr][sc] = color;
+        fillColor(image, sr, sc, vis, color, n, m, target);
+       
+        return image;
+        
+    }
