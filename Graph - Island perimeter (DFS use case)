@@ -1,0 +1,38 @@
+int isLand = 1;
+    int isWater = 0;
+    void findPerimeter(int x, int y, vector<vector<int>> &grid, vector<vector<bool>> &vis, int &perimeter, int n,int m)
+    {
+        vis[x][y]=true;
+        int row[] = {1,0,-1,0};
+        int col[] = {0,1,0,-1};
+        
+        for(int k=0; k<4;k++)
+        {
+            int nx = row[k]+x;
+            int ny = col[k]+y;
+            if(nx>=0 && nx<n && ny>=0 && ny<m && vis[nx][ny]==false && grid[nx]                     [ny]==isLand){
+                findPerimeter(nx, ny, grid, vis, perimeter, n, m);
+            }
+            else if(nx<0 || nx>=n || ny<0 || ny>=m || grid[nx][ny]==isWater)
+                perimeter+=1;
+        }
+    }
+    int islandPerimeter(vector<vector<int>>& grid) 
+    {
+        int n = grid.size();
+        int m = grid[0].size();
+        int perimeter=0;
+        vector<vector<bool>> vis(n, vector<bool>(m,false));
+       // int isLand = 1;
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==isLand)
+                {
+                    findPerimeter(i, j, grid, vis, perimeter, n, m);
+                    return perimeter;
+                }
+            }
+        }
+        return perimeter;
+    }
