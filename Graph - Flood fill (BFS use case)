@@ -1,0 +1,36 @@
+vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) 
+    {
+        int V = image.size();
+        int m = image[0].size();
+        vvi vis(V, vi(m,0));
+        if(V==0) return image;
+        
+        queue<pii> q;
+        q.push({sr,sc});
+        vis[sr][sc]=1;
+        
+        
+        int row[] = {1,0,-1,0};
+        int col[] = {0, 1,0,-1};
+        
+        while(!q.empty())
+        {
+            pii front = q.front(); 
+            q.pop();
+            
+            for(int k=0;k<4;k++)
+            {
+                int r = row[k]+front.first;
+                int c = col[k]+front.second;
+                if(r>=0 && r<V && c>=0 && c<m && vis[r][c]==0 && image[r]                               [c]==image[sr][sc])
+                {
+                    q.push({r,c});
+                    image[r][c]=color;
+                    vis[r][c]=1;
+                }
+            }
+        }
+        image[sr][sc] = color;
+        return image;
+        
+    }
