@@ -1,4 +1,6 @@
 /*
+Use bfs when you want to visit the neighbouring nodes 
+
 For finding shortest path bfs is preferred over dfs
 TC: O(2*E) + O(N) ->because N nodes will be visited and for each node degree of nodes will be checked
 SC: O(3N) ~ O(N)
