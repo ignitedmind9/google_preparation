@@ -1,0 +1,29 @@
+    /*
+    TC for DFS: O(N) + O(2*E)
+    SC for DFS: O(3N)
+    */
+    void noOfProvinces(int v, vector<vector<int>>& isConnected, vector<bool> &vis)
+    {
+        vis[v]=true;
+        int n = isConnected[v].size();
+        int connected = 1;
+        for(int i=0;i<n; i++)
+        {
+            if(!vis[i] && isConnected[v][i]==connected)
+                noOfProvinces(i, isConnected, vis);
+        }
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) 
+    {
+        int V = isConnected.size();
+        vector<bool> vis(V, false);
+        int province = 0;
+        
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+                noOfProvinces(i, isConnected, vis);
+                province++;
+            }
+        }
+        return province;
+    }
